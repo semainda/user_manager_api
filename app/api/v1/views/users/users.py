@@ -19,7 +19,14 @@ class Users(Resource):
     """Class that defines users endpoints"""
     def __init__(self):
         self.user = UserModel()
-    
+
+    def get(self):
+        """Method that returns all users"""
+        users = self.user.get_users()
+        if users:
+            return {"Users": users}, 200
+        return {"Message": "Users not found"}, 404
+
     def post(self):
         """Method that creates users"""
         data_parsed = PARSER.parse_args()
